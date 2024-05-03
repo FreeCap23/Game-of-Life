@@ -27,7 +27,7 @@ public:
   }
   void switchState(int x, int y) {
     if (x >= 0 && x < _x && y >= 0 && y < _y)
-      _matrix[y][x] = _matrix[y][x] ? false : true;
+      _matrix[y][x] = !_matrix[y][x];
   }
   int getAliveNeighbors(int x, int y) {
     int result = 0;

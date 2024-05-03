@@ -31,16 +31,27 @@ int main() {
    * Game loop
    */
   while (!WindowShouldClose()) { // Detect window close or ESC key
-    if (IsKeyPressed(KEY_D))
-      shouldShowNeighbors = shouldShowNeighbors ? false : true;
-    if (IsKeyPressed(KEY_R))
-      grid.reset();
-    if (IsKeyPressed(KEY_RIGHT))
-      grid.update();
-    if (IsKeyPressed(KEY_SPACE))
-      shouldAutoUpdate = shouldAutoUpdate ? false : true;
-    if (IsKeyPressed(KEY_G))
-      shouldDrawGridLines = shouldDrawGridLines ? false : true;
+    while (int keyCode = GetKeyPressed()) {
+      switch (keyCode) {
+      case KEY_D:
+        shouldShowNeighbors = !shouldShowNeighbors;
+        break;
+      case KEY_R:
+        grid.reset();
+        break;
+      case KEY_RIGHT:
+        grid.update();
+        break;
+      case KEY_SPACE:
+        shouldAutoUpdate = !shouldAutoUpdate;
+        break;
+      case KEY_G:
+        shouldDrawGridLines = !shouldDrawGridLines;
+        break;
+      default:
+        break;
+      }
+    }
 
     framesSinceLastTick++;
     if (shouldAutoUpdate && framesSinceLastTick > framesPerTick) {
