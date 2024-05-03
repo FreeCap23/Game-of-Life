@@ -43,4 +43,9 @@ public:
     }
     return result;
   }
+  void reset() {
+    for (int y = 0; y < _y; y++) {
+      _matrix[y].assign(_x, false);
+    }
+  }
 };
