@@ -9,7 +9,7 @@ int main() {
   int framesPerTick = 20;
   int framesSinceLastTick = 20;
 
-  InitWindow(1600, 1200, "Grid");
+  InitWindow(1600, 1200, "Game of Life");
   SetTargetFPS(60);
 
   /*
