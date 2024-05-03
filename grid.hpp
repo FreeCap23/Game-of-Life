@@ -7,7 +7,7 @@ private:
   std::vector<std::vector<bool>> _matrix;
 
 public:
-  Grid() = delete; // Forbid the use of the default destructor
+  Grid() = delete; // Forbid the use of the default constructor
   Grid(int x, int y) : _x(x), _y(y), _matrix(y, std::vector<bool>(x)) {
     _matrix.reserve(y);
     for (int i = 0; i < y; i++) {
