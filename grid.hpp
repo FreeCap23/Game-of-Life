@@ -48,4 +48,23 @@ public:
       _matrix[y].assign(_x, false);
     }
   }
+  void update() {
+    std::vector<std::vector<int>> positionsToUpdate;
+    for (int y = 0; y < _y; y++) {
+      for (int x = 0; x < _x; x++) {
+        int liveNeighbors = this->getAliveNeighbors(x, y);
+        // Any live cell with
+        if (_matrix[y][x]) {
+          // Fewer than 2 or more than 3 live neighbors dies
+          if (liveNeighbors < 2 || liveNeighbors > 3)
+            positionsToUpdate.push_back(std::vector<int>({y, x}));
+          // Any dead cell with exactly 3 live neighbors becomes alive
+        } else if (liveNeighbors == 3)
+          positionsToUpdate.push_back(std::vector<int>({y, x}));
+      }
+    }
+    for (auto pair : positionsToUpdate) {
+      this->switchState(pair[1], pair[0]);
+    }
+  }
 };

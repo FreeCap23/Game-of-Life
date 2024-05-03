@@ -4,6 +4,10 @@
 
 int main() {
   bool shouldShowNeighbors = false;
+  bool shouldAutoUpdate = false;
+  bool shouldDrawGridLines = true;
+  int framesPerTick = 20;
+  int framesSinceLastTick = 20;
 
   InitWindow(1600, 1200, "Grid");
   SetTargetFPS(60);
@@ -31,6 +35,18 @@ int main() {
       shouldShowNeighbors = shouldShowNeighbors ? false : true;
     if (IsKeyPressed(KEY_R))
       grid.reset();
+    if (IsKeyPressed(KEY_RIGHT))
+      grid.update();
+    if (IsKeyPressed(KEY_SPACE))
+      shouldAutoUpdate = shouldAutoUpdate ? false : true;
+    if (IsKeyPressed(KEY_G))
+      shouldDrawGridLines = shouldDrawGridLines ? false : true;
+
+    framesSinceLastTick++;
+    if (shouldAutoUpdate && framesSinceLastTick > framesPerTick) {
+      grid.update();
+      framesSinceLastTick = 0;
+    }
 
     // !TODO: Finite automata or something like that so you can cancel a click
     if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
@@ -52,7 +68,7 @@ int main() {
             const char *text = TextFormat("%d", grid.getAliveNeighbors(x, y));
             DrawText(text, x * tileSize, y * tileSize, tileSize, RED);
           }
-        } else {
+        } else if (shouldDrawGridLines) {
           DrawRectangleLines(x * tileSize, y * tileSize, tileSize, tileSize,
                              GRAY);
         }
